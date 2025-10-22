@@ -1,0 +1,4 @@
+list = ['harsha', 'ranjth', 'kiran']
+for str in list:          
+ for ch in str:
+  print(ch)
