@@ -1,0 +1,11 @@
+Accessing or iterating the dictionary using the while loop...
+
+dict = {'name': 'Vivek', 'age': 21, 'city': 'Delhi'}
+
+items = list(dict.items())
+
+i = 0
+while i < len(items):
+    key, value = items[i]  
+    print(key, ":", value)
+    i += 1
