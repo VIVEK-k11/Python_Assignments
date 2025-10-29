@@ -1,0 +1,67 @@
+def presedence(op):
+    if op == '+' or  op == '-':
+        return 1
+    elif op =='*' or op == '/':
+        return 2
+    else :
+        return 0
+    
+def operation(a, b, op):
+    if op == '+':
+        return a + b
+    elif op == '-':
+        return a-b
+    elif op == '*':
+        return a*b
+    elif op =='/':
+        return a/b
+    
+
+def evaluate(expression) :
+    values =[]
+    ops =[]
+    i = 0
+    while i < len(expression):
+        ch = expression[i]
+        if ch == ' ':
+            i += 1
+            continue
+
+        if ch.isdigit() :
+            val = 0
+            while i < len(expression) and expression[i].isdigit():
+                val = (val*10) + int(expression[i])
+                i += 1
+            values.append(val)
+            continue
+        elif ch == '(' :
+            ops.append(ch)
+
+        elif ch == ')':
+            while ops and ops[-1] != '(':
+                a = values.pop()
+                b = values.pop()
+                op = ops.pop()
+                result  = operation(b,a,op)
+                values.append(result)
+            ops.pop()
+        elif ch in '+*/-':
+            while  ops and presedence(ops[-1]) >= presedence(ch):
+                a = values.pop()
+                b = values.pop()
+                op = ops.pop()
+                result = operation(b,a,op)
+                values.append(result)
+            ops.append(ch)
+        i += 1
+    while ops :
+        a = values.pop()
+        b = values.pop()
+        op = ops.pop()
+        result = operation(b,a,op)
+        values.append(result)   
+    
+    return values[-1]
+
+
+print(evaluate("2 + 3 * 4"))
