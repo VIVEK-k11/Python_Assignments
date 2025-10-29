@@ -1,0 +1,17 @@
+import string
+def word_count (sentence , N) :
+    sentence = sentence.lower()
+    sentence = sentence.translate(str.maketrans("","",string.punctuation))
+    words_list = sentence.split(" ")
+#     print(words_list)
+    dict = {}
+    for ele in words_list :
+        if ele in dict:
+          dict[ele] = dict[ele] + 1
+        else :
+           dict[ele] = 1
+#     print(dict)
+    sorted_dict = sorted(dict.items(), key=lambda x : x[1], reverse=True)
+    return sorted_dict[:N]
+
+print(word_count("I am vivek, i completed my B.Tech, VIvek$ b.tech",2))
