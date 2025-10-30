@@ -2,6 +2,7 @@ def read_marks():
     students = {}
 
     with open("marks.txt",'r') as file:
+         file.readline() 
         for line in file:
 
             line = line.strip()
