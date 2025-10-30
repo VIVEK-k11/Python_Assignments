@@ -1,0 +1,40 @@
+def read_marks():
+    students = {}
+
+    with open("marks.txt",'r') as file:
+        for line in file:
+
+            line = line.strip()
+            if not line:
+                continue
+
+            id,name, subject, marks = line.split(",")
+            marks = int(marks)
+            
+            if id not in students:
+                students[id] = {"name" : name, "subjects" : {}}
+            students[id]["subjects"][subject] = marks
+
+            
+    with open("report.txt",'w') as report:
+        for student_id,info in students.items():
+            name = info["name"]
+            subjects = info["subjects"]
+            total_marks = sum(subjects.values())
+            average_marks = total_marks / len(subjects)
+
+            highest_subject = max(subjects, key=subjects.get)
+            lowest_subject = min(subjects, key=subjects.get)
+
+            highest_marks = subjects[highest_subject]
+            lowest_marks = subjects[lowest_subject]
+
+            report.write(f"Student ID: {student_id}\n")
+            report.write(f"Name: {name}\n")
+            report.write(f"Total Marks: {total_marks}\n")
+            report.write(f"Average Marks: {average_marks}\n")
+            report.write(f"Highest Scored Subject: {highest_subject} ({highest_marks})\n")
+            report.write(f"Lowest Scored Subject: {lowest_subject} ({lowest_marks})\n")
+            report.write("\n")
+            
+read_marks()
